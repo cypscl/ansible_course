@@ -1,0 +1,14 @@
+[all]
+10.0.0.70
+10.0.0.84
+10.0.0.96
+
+[apache_mysql]
+10.0.0.70
+10.0.0.84
+
+[git_nginx_cowsay]
+10.0.0.96
+
+[all:vars]
+ansible_user=root
