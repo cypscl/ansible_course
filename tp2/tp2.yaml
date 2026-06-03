@@ -1,5 +1,5 @@
 ---
-- name: Install & Configure Apache2 / MySQL Server
+- name: TP2 - Install & Configure Apache2 / MySQL Server
   hosts: all
 
   tasks:
@@ -19,11 +19,6 @@
     - name: Gather the package facts
       ansible.builtin.package_facts:
         manager: auto
-
-    - name: Check /var/www/index.html exists
-      ansible.builtin.stat:
-        path: /var/www/index.html
-      register: apache2_index
 
     - name: Check & Create 'Hello World' index.html exists
       ansible.builtin.copy:
