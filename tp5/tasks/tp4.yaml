@@ -1,0 +1,4 @@
+---
+- name: tp4 | Task from TP4
+  ansible.builtin.include_role:
+    name: geerlingguy.docker

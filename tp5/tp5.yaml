@@ -1,0 +1,16 @@
+---
+- name: TP5 - Linters & Inclusions
+  hosts: all
+
+  tasks:
+    - name: Include TP4
+      ansible.builtin.include_tasks: tasks/tp4.yaml
+
+    - name: Include TP3
+      ansible.builtin.include_tasks: tasks/tp3.yaml
+
+    - name: Change time in /etc/last_changed
+      ansible.builtin.copy:
+        content: "{{ ansible_facts['date_time']['date'] }} {{ ansible_facts['date_time']['time'] }} "
+        dest: "/etc/last_changed"
+        mode: "0644"

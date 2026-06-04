@@ -1,0 +1,66 @@
+---
+- name: tp3 | Apt update
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: tp3 | Install Apache2 & MySQL
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - apache2
+    - mysql-server
+  when:
+    - "'apache_mysql' in group_names"
+
+- name: tp3 | Install git, nginx & cowsay
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - nginx
+    - cowsay
+  when:
+    - "'git_nginx_cowsay' in group_names"
+
+- name: tp3 | Install ufw on Ubuntu
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+  when:
+    - ansible_facts["distribution"]  == "Ubuntu"
+
+- name: tp3 | Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: tp3 | Check & Create 'Hello World' index.html exists
+  ansible.builtin.template:
+    src: templates/index.j2
+    dest: /var/www/html/index.html
+    mode: "0644"
+  when:
+    - "'apache2' in ansible_facts.packages or 'nginx' in ansible_facts.packages"
+
+- name: tp3 | Start apache2
+  ansible.builtin.service:
+    name: apache2
+    state: started
+  when:
+    - "'apache_mysql' in group_names"
+    - "'apache2' in ansible_facts.packages"
+
+- name: tp3 | Start nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+  when:
+    - "'git_nginx_cowsay' in group_names"
+    - "'nginx' in ansible_facts.packages"
+
+- name: tp3 | Write day
+  ansible.builtin.template:
+    src: templates/day.j2
+    dest: /etc/jour
+    mode: "0644"

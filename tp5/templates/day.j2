@@ -1,0 +1,17 @@
+{% if (ansible_facts['date_time']['day'] | int)  % 2 == 0 %}
+
+{% if (ansible_facts['date_time']['hour'] | int) > 12 %} 
+Even and after Noon
+{% else %}
+Even and before Noon
+{% endif %}
+
+{% else %}
+
+{% if (ansible_facts['date_time']['hour'] | int) > 12 %} 
+Odd and after Noon
+{% else %}
+Odd and before Noon
+{% endif %}
+
+{% endif %}
