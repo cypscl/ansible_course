@@ -1,0 +1,5 @@
+---
+- name: TP4 - Install & Configure via Roles
+  hosts: all
+  roles:
+    - geerlingguy.docker
