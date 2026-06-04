@@ -17,7 +17,6 @@
       when:
         - "'apache_mysql' in group_names"
 
-
     - name: Install git, nginx & cowsay
       ansible.builtin.apt:
         name: "{{ item }}"
@@ -44,10 +43,9 @@
       ansible.builtin.template:
         src: templates/index.j2
         dest: /var/www/html/index.html
-        mode: '0644'
+        mode: "0644"
       when:
         - "'apache2' in ansible_facts.packages or 'nginx' in ansible_facts.packages"
-
 
     - name: Start apache2
       ansible.builtin.service:
@@ -65,9 +63,8 @@
         - "'git_nginx_cowsay' in group_names"
         - "'nginx' in ansible_facts.packages"
 
-
     - name: Write day
       ansible.builtin.template:
         src: templates/day.j2
         dest: /etc/jour
-        mode: '0644'
+        mode: "0644"

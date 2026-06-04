@@ -15,7 +15,6 @@
         - apache2
         - mysql-server
 
-
     - name: Gather the package facts
       ansible.builtin.package_facts:
         manager: auto
@@ -24,7 +23,7 @@
       ansible.builtin.copy:
         dest: "/var/www/html/index.html"
         content: "<html><body><h1> Hello World from Ansible </h1></body></html>"
-        mode: '0644'
+        mode: "0644"
       when:
         - "'apache2' in ansible_facts.packages"
         - not apache2_index.stat.exists
